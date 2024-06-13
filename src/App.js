@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import "./App.css";
+import UserInput from './Components/UserInput';
+import MessageList from './Components/MessageList';
 
 function App() {
+const [messages, setMessages] = useState([])
+const addMessage = (text, user) => {
+  setMessages([...messages, {id: messages.length, text, user}])
+
+}
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <div className='app'>
+        <div className='user-box'>
+          <h1>User 1</h1>
+          <UserInput 
+          addMessage={addMessage}
+          user="User 1"
+          />
+        </div>
+        <div className='message-box'>
+          <h1>Message</h1>
+          <MessageList messages={messages}/>
+        </div>
+        <div className='user-box'>
+          <h1>User 2</h1>
+          <UserInput 
+          addMessage={addMessage}
+          user="User 2"
+          /> 
+        </div>
+        </div>
+      </Router>
+    </>
   );
 }
 
